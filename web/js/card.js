@@ -4,8 +4,13 @@ window.onload = async function () {
     const username = queryParams.get("username") ?? "yorunoken";
     const mode = queryParams.get("mode") ?? "0";
 
-    const baseUrl = window.location.href.split("/").slice(0, -1).join("/");
-    const player = await fetch(`${baseUrl}/api/user?username=${username}&mode=${mode}`).then((res) => res.json());
+    const player = await fetch(`/api/user?username=${username}&mode=${mode}`).then((res) => res.json());
+
+    if (!player.user_id) {
+        document.title = `User not found!`;
+        console.error("either user was not found, or the request was bad.");
+        return;
+    }
 
     document.title = `User card for ${player.username} (${Number(player.pp_rank).toLocaleString()})`;
     const metaDescription = document.querySelector('meta[name="description"]');

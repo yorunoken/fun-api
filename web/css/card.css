@@ -24,6 +24,7 @@ body {
 }
 
 .player-box {
+    position: relative;
     width: 100%;
     background-color: #17171E;
     display: flex;
@@ -39,6 +40,7 @@ body {
 
 .username {
     position: absolute;
+    top: 4%;
     font-size: 50px;
     color: #47879B;
     font-weight: bold;
@@ -75,16 +77,21 @@ body {
 
 .info-value {
     color: #5C99AB;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .level-bar {
+    position: absolute;
     text-align: center;
     color: white;
     font-weight: bold;
     margin-top: 8px;
-    font-size: 20px;
+    font-size: 18px;
     background: linear-gradient(to right, #5C99AB 50%, #2F393E 50%);
-    width: 100%;
+    width: 60%;
+    top: 82%;
+    left: 34%;
     height: 25px;
     display: block;
     border-radius: 10px;
@@ -100,7 +107,7 @@ body {
 
 .skills-box {
     padding-top: 10px;
-    padding-left: 50px;
+    padding-left: 30px;
     width: 200px;
 }
 
@@ -142,14 +149,14 @@ body {
     background-color: #313740;
     padding: 2px 15px;
     border-radius: 10px;
-    margin: 0 10px;
-    font-size: 12px;
+    margin: 0 5px;
+    font-size: 16px;
     color: #868995;
 }
 
 .rank-emoji {
-    margin-right: 10px;
-    width: 15px;
+    margin-right: 5px;
+    width: 20px;
 }
 
 .bars-box {
