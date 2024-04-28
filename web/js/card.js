@@ -33,9 +33,9 @@ window.onload = async function () {
     document.getElementById("score").textContent = `${Number(player.ranked_score).toLocaleString()}`;
     document.getElementById("avatar").src = `https://a.ppy.sh/${player.user_id}`;
 
-    const level = player.level;
-    const [, fraction] = level.split(".");
-    document.getElementById("level").textContent = ` ${Number(level).toFixed(2)}%`;
+    const level = Number(player.level);
+    const [, fraction] = level.toFixed(2).toString().split(".");
+    document.getElementById("level").textContent = ` ${level.toFixed(2)}%`;
 
     document.getElementById("level-bar").style.background = `linear-gradient(to right, #5C99AB ${fraction}%, #2F393E ${fraction}%)`;
 };
