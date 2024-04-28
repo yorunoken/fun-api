@@ -14,7 +14,7 @@ import (
 )
 
 var limiter = ratelimit.NewBucketWithRate(100, 100)
-var baseUrl = "http://localhost:3000"
+var baseUrl = "http://127.0.0.1:3000"
 
 func main() {
 	go refreshToken()
