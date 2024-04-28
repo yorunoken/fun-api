@@ -19,7 +19,7 @@ var limiter = ratelimit.NewBucketWithRate(100, 100)
 func main() {
 
 	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("Error loading .env file")
+		fmt.Println("Error loading .env file (most likely because it's in prod)")
 	}
 
 	go refreshToken()
