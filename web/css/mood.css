@@ -1,0 +1,11 @@
+.main {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.mood {
+    color: cyan;
+    font-size: 5em;
+    font-weight: 900;
+}

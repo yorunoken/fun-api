@@ -1,0 +1,28 @@
+.main {
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.small-hi {
+    font-size: 0.7em;
+    color: rgb(33, 133, 133);
+}
+
+.go {
+    color: cyan;
+}
+
+.github {
+    color: cyan;
+}
+
+p {
+    margin-bottom: 0.3em;
+    font-size: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(255, 107, 255);
+}
