@@ -35,7 +35,7 @@ window.onload = async function () {
 
     const level = player.level;
     const [, fraction] = level.split(".");
-    document.getElementById("level").textContent = `${Number(level).toFixed(2)}%`;
+    document.getElementById("level").textContent = ` ${Number(level).toFixed(2)}%`;
 
-    levelDoc.style.background = `linear-gradient(to right, #5C99AB ${fraction}%, #2F393E ${fraction}%)`;
+    document.getElementById("level-bar").style.background = `linear-gradient(to right, #5C99AB ${fraction}%, #2F393E ${fraction}%)`;
 };
