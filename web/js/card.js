@@ -31,6 +31,7 @@ window.onload = async function () {
     document.getElementById("pp").textContent = `${Number(player.pp_raw).toFixed(2)}`;
     document.getElementById("accuracy").textContent = `${Number(player.accuracy).toFixed(2)}%`;
     document.getElementById("score").textContent = `${Number(player.ranked_score).toLocaleString()}`;
+    document.getElementById("playcount").textContent = `${Number(player.playcount).toLocaleString()}`;
     document.getElementById("avatar").src = `https://a.ppy.sh/${player.user_id}`;
 
     const level = Number(player.level);
