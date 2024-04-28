@@ -72,7 +72,7 @@ func Graph(w http.ResponseWriter, r *http.Request) {
 
 	var buf bytes.Buffer
 
-	board, err := graph.WriterTo(vg.Length(12*vg.Inch), vg.Length(2*vg.Inch), "png")
+	board, err := graph.WriterTo(vg.Length(8*vg.Inch), vg.Length(2*vg.Inch), "png")
 	if err != nil {
 		log.Fatal(err)
 	}
