@@ -19,12 +19,23 @@ window.onload = async function () {
     }
     console.log("updated shiii");
 
+    document.getElementById("grade-ssh").textContent = player.count_rank_ssh;
+    document.getElementById("grade-ss").textContent = player.count_rank_ss;
+    document.getElementById("grade-sh").textContent = player.count_rank_sh;
+    document.getElementById("grade-s").textContent = player.count_rank_s;
+    document.getElementById("grade-a").textContent = player.count_rank_a;
+
     document.getElementById("username").textContent = player.username;
     document.getElementById("rank").textContent = `#${Number(player.pp_rank).toLocaleString()}`;
+    document.getElementById("country-rank").textContent = `#${Number(player.pp_country_rank).toLocaleString()}`;
+    document.getElementById("pp").textContent = `${Number(player.pp_raw).toFixed(2)}`;
     document.getElementById("accuracy").textContent = `${Number(player.accuracy).toFixed(2)}%`;
+    document.getElementById("score").textContent = `${Number(player.ranked_score).toLocaleString()}`;
     document.getElementById("avatar").src = `https://a.ppy.sh/${player.user_id}`;
-    const levelDoc = document.getElementById("level");
-    levelDoc.textContent = `${Number(player.level).toFixed(2)}%`;
 
-    levelDoc.style.background = `linear-gradient(to right, gold ${player.level + "%"}, rgba(80, 80, 80, 1) ${player.level + "%"})`;
+    const level = player.level;
+    const [, fraction] = level.split(".");
+    document.getElementById("level").textContent = `${Number(level).toFixed(2)}%`;
+
+    levelDoc.style.background = `linear-gradient(to right, #5C99AB ${fraction}%, #2F393E ${fraction}%)`;
 };

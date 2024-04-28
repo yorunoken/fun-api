@@ -190,13 +190,13 @@ body {
 
 
 .progress-bar.aim {
-    background: linear-gradient(to right, #5C99AB 53.2%, #2F393E 53.2%);
+    background: linear-gradient(to right, #5C99AB 1%, #2F393E 1%);
 }
 
 .progress-bar.speed {
-    background: linear-gradient(to right, #5C99AB 85.4%, #2F393E 85.4%);
+    background: linear-gradient(to right, #5C99AB 1%, #2F393E 1%);
 }
 
 .progress-bar.accuracy {
-    background: linear-gradient(to right, #5C99AB 66.6%, #2F393E 66.6%);
+    background: linear-gradient(to right, #5C99AB 1%, #2F393E 1%);
 }
