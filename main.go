@@ -30,6 +30,7 @@ func main() {
 	http.HandleFunc("/card", handlers.Card)
 
 	http.HandleFunc("/api/user", api.User)
+	http.HandleFunc("/api/graph", api.Graph)
 	http.HandleFunc("/api/token", func(w http.ResponseWriter, r *http.Request) {
 		if limiter.TakeAvailable(1) == 0 {
 			http.Error(w, "Rate limit exceeded", http.StatusTooManyRequests)
