@@ -10,13 +10,18 @@ import (
 	"os"
 	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/juju/ratelimit"
 )
 
 var limiter = ratelimit.NewBucketWithRate(100, 100)
-var baseUrl = "http://fun.yorunoken.com"
 
 func main() {
+
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	go refreshToken()
 
 	http.HandleFunc("/", handlers.Index)
@@ -41,6 +46,7 @@ func main() {
 
 func refreshToken() {
 	secret := os.Getenv("secret")
+	baseUrl := os.Getenv("base_url")
 
 	utils.SetToken(secret, baseUrl)
 
