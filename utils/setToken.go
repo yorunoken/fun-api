@@ -22,8 +22,7 @@ func SetToken(secret string, baseUrl string) {
 
 	var tokenResponse TokenResponse
 
-	err = json.Unmarshal(rq, &tokenResponse)
-	if err != nil {
+	if err := json.Unmarshal(rq, &tokenResponse); err != nil {
 		fmt.Println("Error decoding JSON:", err)
 		return
 	}

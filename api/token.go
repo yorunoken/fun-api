@@ -45,6 +45,13 @@ func Token(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var userResponse map[string]string
+
+	if err := json.Unmarshal(data, &userResponse); err != nil {
+		fmt.Println("Error decoding JSON:", err)
+		return
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(data)
