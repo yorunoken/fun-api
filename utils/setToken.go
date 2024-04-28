@@ -13,6 +13,7 @@ type TokenResponse struct {
 }
 
 func SetToken(secret string, baseUrl string) {
+	fmt.Println(baseUrl + "/api/token?secret=" + secret)
 	rq, err := Get(fmt.Sprintf("%s/api/token?secret=%s", baseUrl, secret))
 
 	if err != nil {
