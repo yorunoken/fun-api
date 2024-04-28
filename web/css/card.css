@@ -46,6 +46,18 @@ body {
     font-weight: bold;
 }
 
+.graph {
+    position: absolute;
+    top: 4%;
+    left: 32%;
+    font-size: 50px;
+    color: #47879B;
+    font-weight: bold;
+    border-radius: 30px;
+    height: 80px;
+    /* width: 300px; */
+}
+
 .avatar-box {
     width: 200px;
 }
@@ -64,13 +76,11 @@ body {
 }
 
 .info-1-key {
-    margin-top: 5px;
     font-size: 25px;
     color: #868995;
 }
 
 .info-2-key {
-    margin-top: 5px;
     font-size: 25px;
     color: #868995;
 }

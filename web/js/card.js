@@ -44,6 +44,8 @@ window.onload = async function () {
     document.getElementById("combo").textContent = `${statistics.maximum_combo.toLocaleString()}`;
     document.getElementById("avatar").src = player.avatar_url;
 
+    document.getElementById("graph").src = `/api/graph?points=${player.rankHistory.data.join(",")}`;
+
     const { level } = statistics;
     document.getElementById("level").textContent = `${level.current}.${level.progress.toFixed()}%`;
 
