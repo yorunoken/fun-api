@@ -5,7 +5,7 @@ window.onload = async function () {
     const mode = queryParams.get("mode") ?? "0";
 
     const baseUrl = window.location.href.split("/").slice(0, -1).join("/");
-    const player = await fetch(`${baseUrl}/user?username=${username}&mode=${mode}`).then((res) => res.json());
+    const player = await fetch(`${baseUrl}/api/user?username=${username}&mode=${mode}`).then((res) => res.json());
 
     document.title = `User card for ${player.username} (${Number(player.pp_rank).toLocaleString()})`;
     const metaDescription = document.querySelector('meta[name="description"]');

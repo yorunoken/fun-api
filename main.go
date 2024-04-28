@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"fun-api/api"
 	"fun-api/handlers"
 	"fun-api/utils"
 	"log"
@@ -10,10 +11,12 @@ import (
 
 func main() {
 	http.HandleFunc("/", handlers.Index)
-	http.HandleFunc("/user", handlers.User)
 	http.HandleFunc("/mood", handlers.Mood)
 	http.HandleFunc("/hello", handlers.Hello)
 	http.HandleFunc("/card", handlers.Card)
+
+	http.HandleFunc("/api/user", api.User)
+
 	http.HandleFunc("/media/", utils.MediaRedirector)
 
 	fmt.Println("Listening on http://localhost:3000")
