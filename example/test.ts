@@ -1,6 +1,6 @@
 async function main() {
-   const cat = await fetch("http://localhost:3000/api/token").then(res => res.text())
-   console.log(cat);
+   const player = await fetch("http://localhost:3000/api/user?username=yorunoken").then(res => res.json())
+   console.log(player.statistics);
 }
 
 main();
