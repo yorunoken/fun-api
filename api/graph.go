@@ -3,6 +3,7 @@ package api
 import (
 	"bytes"
 	"fmt"
+	"fun-api/utils"
 	"image/color"
 	"log"
 	"net/http"
@@ -47,6 +48,17 @@ func Graph(w http.ResponseWriter, r *http.Request) {
 	graph.X.Tick.Marker = plot.ConstantTicks([]plot.Tick{})
 	graph.Y.Tick.Marker = plot.ConstantTicks([]plot.Tick{})
 
+	margin := 5
+	xMin := 0 - margin
+	xMax := len(dataPoints) - 1 + margin
+	yMin := utils.MinValue(dataPoints) - margin
+	yMax := utils.MaxValue(dataPoints) + margin
+
+	graph.X.Min = float64(xMin)
+	graph.X.Max = float64(xMax)
+	graph.Y.Min = float64(yMin)
+	graph.Y.Max = float64(yMax)
+
 	line, points, err := plotter.NewLinePoints(pts)
 	if err != nil {
 		log.Fatal(err)
@@ -60,7 +72,7 @@ func Graph(w http.ResponseWriter, r *http.Request) {
 
 	var buf bytes.Buffer
 
-	board, err := graph.WriterTo(vg.Length(7*vg.Inch), vg.Length(2*vg.Inch), "png")
+	board, err := graph.WriterTo(vg.Length(12*vg.Inch), vg.Length(2*vg.Inch), "png")
 	if err != nil {
 		log.Fatal(err)
 	}
