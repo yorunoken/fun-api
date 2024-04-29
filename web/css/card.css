@@ -8,13 +8,8 @@ body {
     background: rgb(24, 24, 24);
 }
 
-.bg {
-    background: #2F2F3E;
-    /* display: flex;
-    flex-direction: column; */
-    justify-content: center;
-    display: grid;
-    grid-template-columns: 1fr;
+.main {
+    background: #2F2F3E; 
     height: 600px;
     width: 850px;
     padding-top: 50px;
@@ -89,6 +84,11 @@ body {
     color: #5C99AB;
     font-size: 20px;
     font-weight: bold;
+}
+
+#rank {
+    font-weight: bold;
+    font-size: 28px;
 }
 
 .level-bar {
