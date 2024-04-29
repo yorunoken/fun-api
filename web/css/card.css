@@ -75,6 +75,11 @@ body {
     color: #868995;
 }
 
+.info-1-key.rank {
+    font-weight: bold;
+    font-size: 28px;
+}
+
 .info-2-key {
     font-size: 25px;
     color: #868995;
