@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"fmt"
 	"fun-api/utils"
+	"image"
 	"image/color"
+	"image/png"
 	"log"
 	"net/http"
 	"strconv"
@@ -17,6 +19,7 @@ import (
 
 func Graph(w http.ResponseWriter, r *http.Request) {
 	dataPointsStr := r.URL.Query().Get("points")
+	isUpsideDown := r.URL.Query().Get("upside") == "true"
 
 	if dataPointsStr == "" {
 		http.Error(w, "Missing points parameter", http.StatusBadRequest)
@@ -27,11 +30,6 @@ func Graph(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Invalid dataPoints parameter: %v", err), http.StatusBadRequest)
 		return
-	}
-
-	// reverse dataPoints array
-	for i, j := 0, len(dataPoints)-1; i < j; i, j = i+1, j-1 {
-		dataPoints[i], dataPoints[j] = dataPoints[j], dataPoints[i]
 	}
 
 	pts := generateData(dataPoints)
@@ -48,7 +46,7 @@ func Graph(w http.ResponseWriter, r *http.Request) {
 	graph.X.Tick.Marker = plot.ConstantTicks([]plot.Tick{})
 	graph.Y.Tick.Marker = plot.ConstantTicks([]plot.Tick{})
 
-	margin := 5
+	margin := 10
 	xMin := 0 - margin
 	xMax := len(dataPoints) - 1 + margin
 	yMin := utils.MinValue(dataPoints) - margin
@@ -70,21 +68,45 @@ func Graph(w http.ResponseWriter, r *http.Request) {
 
 	graph.Add(line, points)
 
-	var buf bytes.Buffer
-
+	var buffer bytes.Buffer
 	board, err := graph.WriterTo(vg.Length(8*vg.Inch), vg.Length(2*vg.Inch), "png")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return
 	}
 
-	if _, err := board.WriteTo(&buf); err != nil {
-		log.Fatal(err)
+	if _, err := board.WriteTo(&buffer); err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if isUpsideDown {
+		img, err := png.Decode(&buffer)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		flippedImage := flipImage(img)
+
+		var flippedBuf bytes.Buffer
+		if err := png.Encode(&flippedBuf, flippedImage); err != nil {
+			log.Fatal(err)
+		}
+
+		w.Header().Set("Content-Type", "image/png")
+		if _, err := w.Write(flippedBuf.Bytes()); err != nil {
+			fmt.Println(err)
+			return
+		}
+		return
 	}
 
 	w.Header().Set("Content-Type", "image/png")
-
-	if _, err := w.Write(buf.Bytes()); err != nil {
-		log.Fatal(err)
+	if _, err := w.Write(buffer.Bytes()); err != nil {
+		fmt.Println(err)
+		return
 	}
 }
 
@@ -111,4 +133,18 @@ func parseDataPoints(dataPointsStr string) ([]int, error) {
 		dataPoints[i] = val
 	}
 	return dataPoints, nil
+}
+
+func flipImage(img image.Image) image.Image {
+	bounds := img.Bounds()
+	flipped := image.NewRGBA(bounds)
+
+	for y := 0; y < bounds.Dy(); y++ {
+		for x := 0; x < bounds.Dx(); x++ {
+			pixel := img.At(x, bounds.Dy()-y-1)
+			flipped.Set(x, y, pixel)
+		}
+	}
+
+	return flipped
 }
