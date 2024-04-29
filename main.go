@@ -29,6 +29,7 @@ func main() {
 	http.HandleFunc("/hello", handlers.Hello)
 	http.HandleFunc("/card", handlers.Card)
 
+	http.HandleFunc("/api/averagecolor", api.AverageColor)
 	http.HandleFunc("/api/user", api.User)
 	http.HandleFunc("/api/graph", api.Graph)
 	http.HandleFunc("/api/token", func(w http.ResponseWriter, r *http.Request) {
