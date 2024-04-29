@@ -49,6 +49,8 @@ window.onload = async function () {
     const { level } = statistics;
     document.getElementById("level").textContent = `${level.current}.${level.progress.toFixed()}%`;
 
-    console.log(level.progress.toFixed());
     document.getElementById("level-bar").style.background = `linear-gradient(to right, #5C99AB ${(level.progress + 0.5).toFixed()}%, #2F393E ${(level.progress + 0.5).toFixed()}%)`;
+
+    const averageAvatarColor = await fetch(`/api/averagecolor?image=${player.avatar_url}`).then((res) => res.json());
+    console.log(averageAvatarColor); // #4010e2
 };
