@@ -1,4 +1,4 @@
-package api
+package user
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func User(w http.ResponseWriter, r *http.Request) {
+func Details(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
 	mode := r.URL.Query().Get("mode")
 
@@ -36,5 +36,4 @@ func User(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	w.Write(data)
-
 }

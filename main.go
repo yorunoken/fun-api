@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"fun-api/api"
+	"fun-api/api/user"
 	"fun-api/handlers"
 	"fun-api/utils"
 	"log"
@@ -30,7 +31,10 @@ func main() {
 	http.HandleFunc("/card", handlers.Card)
 
 	http.HandleFunc("/api/averagecolor", api.AverageColor)
-	http.HandleFunc("/api/user", api.User)
+	http.HandleFunc("/api/user/skill", user.Skill)
+	http.HandleFunc("/api/user/details", user.Details)
+	http.HandleFunc("/api/user/tops", user.Tops)
+
 	http.HandleFunc("/api/graph", api.Graph)
 	http.HandleFunc("/api/token", func(w http.ResponseWriter, r *http.Request) {
 		if limiter.TakeAvailable(1) == 0 {
