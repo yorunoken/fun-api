@@ -4,7 +4,7 @@ window.onload = async function () {
     const username = queryParams.get("username") ?? "yorunoken";
     const mode = queryParams.get("mode") ?? "osu";
 
-    const player = await fetch(`/api/user?username=${username}&mode=${mode}`).then((res) => res.json());
+    const player = await fetch(`/api/user/details?username=${username}&mode=${mode}`).then((res) => res.json());
 
     const { statistics } = player;
 
