@@ -42,8 +42,8 @@ func main() {
 
 	http.HandleFunc("/media/", utils.MediaRedirector)
 
-	fmt.Println("Listening on http://localhost:3000")
-	log.Fatal(http.ListenAndServe(utils.GetPort("3000"), nil))
+	fmt.Println("Listening on http://localhost:3001")
+	log.Fatal(http.ListenAndServe(utils.GetPort("3001"), nil))
 }
 
 func refreshToken() {
