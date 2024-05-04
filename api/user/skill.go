@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"fun-api/database"
 	"fun-api/utils"
 	"math"
 	"net/http"
@@ -49,7 +48,7 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 	for _, top := range tops {
 		beatmapId := fmt.Sprintf("%.0f", top["beatmap_id"])
 
-		ok := database.EntryExists(db, "maps", beatmapId)
+		ok := utils.EntryExists(db, "maps", beatmapId)
 		if !ok {
 			fmt.Printf("beatmap_id %s does not exist\n", beatmapId)
 
@@ -59,7 +58,7 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			_, err = database.AddEntry(db, "maps", beatmapId, []database.Data{{Key: "data", Value: string(mapData)}})
+			_, err = utils.AddEntry(db, "maps", beatmapId, []utils.DatabaseData{{Key: "data", Value: string(mapData)}})
 			if err != nil {
 				utils.WriteError(w, fmt.Sprintf("There was an error while inserting beatmap %s into database: %s", beatmapId, err))
 				return

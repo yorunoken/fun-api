@@ -1,4 +1,4 @@
-package database
+package utils
 
 import (
 	"database/sql"
@@ -8,7 +8,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-type Data struct {
+type DatabaseData struct {
 	Key   string
 	Value string
 }
@@ -24,7 +24,7 @@ func GetEntry(db *sql.DB, table string, id string) (*sql.Rows, error) {
 	return db.Query(fmt.Sprintf("SELECT * FROM %s WHERE id = ?", table), id)
 }
 
-func AddEntry(db *sql.DB, table string, id string, dataArr []Data) (sql.Result, error) {
+func AddEntry(db *sql.DB, table string, id string, dataArr []DatabaseData) (sql.Result, error) {
 	setClause := ""
 	values := []string{}
 
