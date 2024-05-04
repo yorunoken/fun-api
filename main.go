@@ -13,10 +13,7 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
-	"github.com/juju/ratelimit"
 )
-
-var limiter = ratelimit.NewBucketWithRate(100, 100)
 
 func main() {
 

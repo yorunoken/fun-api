@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/juju/ratelimit v1.0.2
+	gonum.org/v1/plot v0.14.0
 )
 
 require (
@@ -18,5 +18,4 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/image v0.11.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
-	gonum.org/v1/plot v0.14.0 // indirect
 )
