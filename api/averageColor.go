@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"fun-api/utils"
 	"image"
 	_ "image/gif"
 	_ "image/jpeg"
@@ -13,20 +14,20 @@ import (
 func AverageColor(w http.ResponseWriter, r *http.Request) {
 	imageUrl := r.URL.Query().Get("image")
 	if imageUrl == "" {
-		http.Error(w, "`image` parameter was not specified.", http.StatusBadRequest)
+		utils.WriteError(w, "`image` parameter was not specified.")
 		return
 	}
 
 	resp, err := http.Get(imageUrl)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Error getting image: %s", err), http.StatusBadRequest)
+		utils.WriteError(w, fmt.Sprintf("Error getting image: %s", err))
 		return
 	}
 	defer resp.Body.Close()
 
 	img, _, err := image.Decode(resp.Body)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Error decoding image: %s", err), http.StatusBadRequest)
+		utils.WriteError(w, fmt.Sprintf("Error decoding image: %s", err))
 		return
 	}
 
@@ -36,7 +37,7 @@ func AverageColor(w http.ResponseWriter, r *http.Request) {
 
 	jsonBytes, err := json.Marshal(respJson)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Error on JSON: %s", err), http.StatusBadRequest)
+		utils.WriteError(w, fmt.Sprintf("Error on JSON: %s", err))
 		return
 	}
 

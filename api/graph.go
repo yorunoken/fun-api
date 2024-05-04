@@ -22,13 +22,13 @@ func Graph(w http.ResponseWriter, r *http.Request) {
 	isUpsideDown := r.URL.Query().Get("upside") == "true"
 
 	if dataPointsStr == "" {
-		http.Error(w, "Missing points parameter", http.StatusBadRequest)
+		utils.WriteError(w, "Missing points parameter")
 		return
 	}
 
 	dataPoints, err := parseDataPoints(dataPointsStr)
 	if err != nil {
-		http.Error(w, fmt.Sprintf("Invalid dataPoints parameter: %v", err), http.StatusBadRequest)
+		utils.WriteError(w, fmt.Sprintf("Invalid dataPoints parameter: %s", err))
 		return
 	}
 
