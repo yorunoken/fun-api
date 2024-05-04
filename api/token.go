@@ -3,7 +3,6 @@ package api
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"fun-api/utils"
 	"net/http"
 	"os"
@@ -12,9 +11,7 @@ import (
 func Token(w http.ResponseWriter, r *http.Request) {
 	secret := r.URL.Query().Get("secret")
 	if secret != os.Getenv("secret") {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(`{"error": "Internal Server Error"}`))
+		utils.WriteError(w, "Internal Server Error")
 		return
 	}
 
@@ -28,20 +25,14 @@ func Token(w http.ResponseWriter, r *http.Request) {
 
 	payloadBytes, err := json.Marshal(payloadData)
 	if err != nil {
-		fmt.Println("Error marshalling JSON:", err)
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(`{"error": "Internal Server Error"}`))
+		utils.WriteError(w, "Error while converting JSON")
 		return
 	}
 
 	data, err := utils.Post("https://osu.ppy.sh/oauth/token", bytes.NewReader(payloadBytes))
 
 	if err != nil {
-		fmt.Println("Error fetching OAuth token:", err)
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(`{"error": "Failed to fetch OAuth token"}`))
+		utils.WriteError(w, "Failed to fetch OAuth token")
 		return
 	}
 

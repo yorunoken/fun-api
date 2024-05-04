@@ -1,20 +1,23 @@
-package api
+package user
 
 import (
 	"fmt"
 	"fun-api/utils"
 	"net/http"
 	"os"
+	"strings"
 )
 
-func User(w http.ResponseWriter, r *http.Request) {
+func Details(w http.ResponseWriter, r *http.Request) {
 	username := r.URL.Query().Get("username")
-	mode := r.URL.Query().Get("mode")
+	mode := strings.ToLower(r.URL.Query().Get("mode"))
 
-	if username == "" || mode == "" {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "Missing username or mode"}`))
+	if mode == "" {
+		mode = "osu"
+	}
+
+	if username == "" {
+		utils.WriteError(w, "Missing username parameter")
 		return
 	}
 
@@ -27,14 +30,11 @@ func User(w http.ResponseWriter, r *http.Request) {
 	data, err := utils.Get(fmt.Sprintf("https://osu.ppy.sh/api/v2/users/%s/%s", username, mode), headers)
 
 	if err != nil {
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(`{"error": "Failed to fetch user data"}`))
+		utils.WriteError(w, fmt.Sprintf("Failed to fetch user data: %s", err))
 		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	w.Write(data)
-
 }

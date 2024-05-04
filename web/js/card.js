@@ -4,7 +4,7 @@ window.onload = async function () {
     const username = queryParams.get("username") ?? "yorunoken";
     const mode = queryParams.get("mode") ?? "osu";
 
-    const player = await fetch(`/api/user?username=${username}&mode=${mode}`).then((res) => res.json());
+    const player = await fetch(`/api/user/details?username=${username}&mode=${mode}`).then((res) => res.json());
 
     const { statistics } = player;
 
@@ -48,9 +48,18 @@ window.onload = async function () {
 
     const { level } = statistics;
     document.getElementById("level").textContent = `${level.current}.${level.progress.toFixed()}%`;
-
     document.getElementById("level-bar").style.background = `linear-gradient(to right, #5C99AB ${(level.progress + 0.5).toFixed()}%, #2F393E ${(level.progress + 0.5).toFixed()}%)`;
 
-    const averageAvatarColor = await fetch(`/api/averagecolor?image=${player.avatar_url}`).then((res) => res.json());
-    console.log(averageAvatarColor); // #4010e2
+    const skills = await fetch(`/api/user/skills?id=${player.id}`).then((res) => res.json());
+    document.getElementById("aim-value").textContent = Number(skills.aim).toFixed(2);
+    document.getElementById("bar-aim").style.background = `linear-gradient(to right, #5C99AB ${Number(skills.aim).toFixed()}%, #2F393E ${Number(skills.aim).toFixed()}%)`;
+
+    document.getElementById("speed-value").textContent = Number(skills.speed).toFixed(2);
+    document.getElementById("bar-speed").style.background = `linear-gradient(to right, #5C99AB ${Number(skills.speed).toFixed()}%, #2F393E ${Number(skills.speed).toFixed()}%)`;
+
+    document.getElementById("accuracy-value").textContent = Number(skills.acc).toFixed(2);
+    document.getElementById("bar-accuracy").style.background = `linear-gradient(to right, #5C99AB ${Number(skills.acc).toFixed()}%, #2F393E ${Number(skills.acc).toFixed()}%)`;
+
+    // const averageAvatarColor = await fetch(`/api/averagecolor?image=${player.avatar_url}`).then((res) => res.json());
+    // console.log(averageAvatarColor); // #4010e2
 };

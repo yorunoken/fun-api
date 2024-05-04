@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"fun-api/api"
+	"fun-api/api/beatmap"
+	"fun-api/api/user"
 	"fun-api/handlers"
 	"fun-api/utils"
 	"log"
@@ -11,10 +13,7 @@ import (
 	"time"
 
 	"github.com/joho/godotenv"
-	"github.com/juju/ratelimit"
 )
-
-var limiter = ratelimit.NewBucketWithRate(100, 100)
 
 func main() {
 
@@ -30,15 +29,14 @@ func main() {
 	http.HandleFunc("/card", handlers.Card)
 
 	http.HandleFunc("/api/averagecolor", api.AverageColor)
-	http.HandleFunc("/api/user", api.User)
+	http.HandleFunc("/api/user/skills", user.Skills)
+	http.HandleFunc("/api/user/details", user.Details)
+	http.HandleFunc("/api/user/tops", user.Tops)
+
+	http.HandleFunc("/api/beatmap/download", beatmap.Download)
+
 	http.HandleFunc("/api/graph", api.Graph)
-	http.HandleFunc("/api/token", func(w http.ResponseWriter, r *http.Request) {
-		if limiter.TakeAvailable(1) == 0 {
-			http.Error(w, "Rate limit exceeded", http.StatusTooManyRequests)
-			return
-		}
-		api.Token(w, r)
-	})
+	http.HandleFunc("/api/token", api.Token)
 
 	http.HandleFunc("/media/", utils.MediaRedirector)
 
