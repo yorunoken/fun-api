@@ -31,7 +31,6 @@ func Tops(w http.ResponseWriter, r *http.Request) {
 		"Content-Type":  "application/json",
 		"Accept":        "Accept: application/json",
 		"Authorization": "Bearer " + os.Getenv("access_token"),
-		"x-api-version": "20220706",
 	}
 
 	data, err := utils.Get(fmt.Sprintf("https://osu.ppy.sh/api/v2/users/%s/scores/%s?mode=%s&limit=100", userId, scoreType, mode), headers)
