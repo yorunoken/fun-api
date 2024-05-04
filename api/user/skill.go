@@ -62,10 +62,12 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 		utils.WriteError(w, fmt.Sprintf("Failed to connect to the database: %s", err))
 		return
 	}
+	fmt.Println("successfully connected to the database!")
 
 	performances := []C.calculateresult{}
 
 	for _, top := range tops {
+		fmt.Println("hii ", top.Beatmap.ID)
 		beatmapId := top.Beatmap.ID
 
 		var data string
