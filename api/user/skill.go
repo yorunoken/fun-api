@@ -1,8 +1,10 @@
 package user
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
+	"fun-api/database"
 	"fun-api/utils"
 	"math"
 	"net/http"
@@ -20,7 +22,6 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 	}
 
 	bytes, err := utils.Get(fmt.Sprintf("%s/api/user/tops?id=%s&type=best", baseUrl, userId))
-
 	if err != nil {
 		utils.WriteError(w, fmt.Sprintf("There was an error while making the request to api/user/tops: %s", err))
 		return
@@ -34,7 +35,46 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	calcStandardSkills(tops)
+	dbPath := "/root/HanamiBot/src/data.db"
+	if os.Getenv("DEV") == "1" {
+		dbPath = "./test.db"
+	}
+
+	db, err := sql.Open("sqlite3", dbPath)
+	if err != nil {
+		utils.WriteError(w, fmt.Sprintf("There was an error while opening the database: %s", err))
+		return
+	}
+
+	for _, top := range tops {
+		beatmapId := fmt.Sprintf("%.0f", top["beatmap_id"])
+
+		ok := database.EntryExists(db, "maps", beatmapId)
+		if !ok {
+			fmt.Printf("beatmap_id %s does not exist\n", beatmapId)
+
+			mapData, err := utils.Get(fmt.Sprintf("%s/api/beatmap/download?id=%s", baseUrl, beatmapId))
+			if err != nil {
+				utils.WriteError(w, fmt.Sprintf("There was an error while downloading beatmap number %s: %s", beatmapId, err))
+				return
+			}
+
+			_, err = database.AddEntry(db, "maps", beatmapId, []database.Data{{Key: "data", Value: string(mapData)}})
+			if err != nil {
+				utils.WriteError(w, fmt.Sprintf("There was an error while inserting beatmap %s into database: %s", beatmapId, err))
+				return
+			}
+		}
+	}
+
+	db.Close()
+
+	var acc, aim, speed float64
+	if mode == "osu" {
+		acc, aim, speed = calcStandardSkills(tops)
+	}
+
+	fmt.Println(acc, aim, speed)
 }
 
 func calcValue(val float64) float64 {
