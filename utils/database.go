@@ -15,13 +15,17 @@ type DatabaseData struct {
 
 func EntryExists(db *sql.DB, table string, id string) bool {
 	var count int
-	db.QueryRow(fmt.Sprintf("SELECT * FROM %s WHERE id = ?", table), id).Scan(&count)
-
+	row := db.QueryRow(fmt.Sprintf("SELECT COUNT(*) FROM %s WHERE id = ?", table), id)
+	err := row.Scan(&count)
+	if err != nil {
+		fmt.Println("Error scanning row:", err)
+		return false
+	}
 	return count > 0
 }
 
-func GetEntry(db *sql.DB, table string, id string) (*sql.Rows, error) {
-	return db.Query(fmt.Sprintf("SELECT * FROM %s WHERE id = ?", table), id)
+func GetEntry(db *sql.DB, table string, id string) *sql.Row {
+	return db.QueryRow(fmt.Sprintf("SELECT * FROM %s WHERE id = ?", table), id)
 }
 
 func AddEntry(db *sql.DB, table string, id string, dataArr []DatabaseData) (sql.Result, error) {
