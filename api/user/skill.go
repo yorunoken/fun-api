@@ -49,28 +49,43 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 		beatmapId := fmt.Sprintf("%.0f", top["beatmap_id"])
 
 		ok := utils.EntryExists(db, "maps", beatmapId)
-		if !ok {
-			fmt.Printf("beatmap_id %s does not exist\n", beatmapId)
+		if ok {
+			continue
+		}
 
-			mapData, err := utils.Get(fmt.Sprintf("%s/api/beatmap/download?id=%s", baseUrl, beatmapId))
-			if err != nil {
-				utils.WriteError(w, fmt.Sprintf("There was an error while downloading beatmap number %s: %s", beatmapId, err))
-				return
-			}
+		fmt.Printf("beatmap_id %s does not exist\n", beatmapId)
 
-			_, err = utils.AddEntry(db, "maps", beatmapId, []utils.DatabaseData{{Key: "data", Value: string(mapData)}})
-			if err != nil {
-				utils.WriteError(w, fmt.Sprintf("There was an error while inserting beatmap %s into database: %s", beatmapId, err))
-				return
-			}
+		mapData, err := utils.Get(fmt.Sprintf("%s/api/beatmap/download?id=%s", baseUrl, beatmapId))
+		if err != nil {
+			utils.WriteError(w, fmt.Sprintf("There was an error while downloading beatmap number %s: %s", beatmapId, err))
+			return
+		}
+
+		_, err = utils.AddEntry(db, "maps", beatmapId, []utils.DatabaseData{{Key: "data", Value: string(mapData)}})
+		if err != nil {
+			utils.WriteError(w, fmt.Sprintf("There was an error while inserting beatmap %s into database: %s", beatmapId, err))
+			return
 		}
 	}
 
 	db.Close()
 
 	var acc, aim, speed float64
+
 	if mode == "osu" {
 		acc, aim, speed = calcStandardSkills(tops)
+	}
+
+	if mode == "taiko" {
+		acc, aim, speed = calcTaikoSkills(tops)
+	}
+
+	if mode == "fruits" {
+		acc, aim, speed = calcFruitsSkils(tops)
+	}
+
+	if mode == "mania" {
+		acc, aim, speed = calcManiaSkills(tops)
 	}
 
 	fmt.Println(acc, aim, speed)
@@ -111,14 +126,14 @@ func calcStandardSkills(scores []map[string]interface{}) (float64, float64, floa
 	return 0, 0, 0
 }
 
-func calcTaikoSkills() {
-
+func calcTaikoSkills(scores []map[string]interface{}) (float64, float64, float64) {
+	return 0, 0, 0
 }
 
-func calcFruitsSkils() {
-
+func calcFruitsSkils(scores []map[string]interface{}) (float64, float64, float64) {
+	return 0, 0, 0
 }
 
-func calcManiaSkills() {
-
+func calcManiaSkills(scores []map[string]interface{}) (float64, float64, float64) {
+	return 0, 0, 0
 }
