@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"fun-api/api"
+	"fun-api/api/beatmap"
 	"fun-api/api/user"
 	"fun-api/handlers"
 	"fun-api/utils"
@@ -34,6 +35,8 @@ func main() {
 	http.HandleFunc("/api/user/skills", user.Skills)
 	http.HandleFunc("/api/user/details", user.Details)
 	http.HandleFunc("/api/user/tops", user.Tops)
+
+	http.HandleFunc("/api/beatmap/download", beatmap.Download)
 
 	http.HandleFunc("/api/graph", api.Graph)
 	http.HandleFunc("/api/token", api.Token)
