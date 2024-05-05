@@ -7,10 +7,11 @@ build: clean
 	@cd rosu-pp-ffi/ && cargo build --release && cargo t est
 	@cp rosu-pp-ffi/target/release/librosu_pp_ffi.so lib/
 	@cp rosu-pp-ffi/bindings/rosu_pp_ffi.h lib/
-	go build -ldflags="-r $(ROOT_DIR)lib" -o fun_yorunoken_com
 
 .PHONY: run
-run: build
+run: 
+	@rm -rf fun_yorunoken_com
+	@go build -ldflags="-r $(ROOT_DIR)lib" -o fun_yorunoken_com
 	@./fun_yorunoken_com
 
 .PHONY: clean
