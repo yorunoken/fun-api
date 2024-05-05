@@ -67,7 +67,6 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 	performances := []C.calculateresult{}
 
 	for _, top := range tops {
-		fmt.Println("hii ", top.Beatmap.ID)
 		beatmapId := top.Beatmap.ID
 
 		var data string
@@ -76,7 +75,7 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 			var id string
 			utils.GetEntry(db, "maps", fmt.Sprint(beatmapId)).Scan(&id, &data)
 		} else {
-			fmt.Printf("beatmap_id %d does not exist\n", beatmapId)
+			fmt.Printf("beatmap_id %d does not exist, downloading.\n", beatmapId)
 			bytes, err := utils.Get(fmt.Sprintf("%s/api/beatmap/download?id=%d", baseUrl, beatmapId))
 			if err != nil {
 				utils.WriteError(w, fmt.Sprintf("There was an error while downloading beatmap number %d: %s", beatmapId, err))

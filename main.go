@@ -32,6 +32,7 @@ func main() {
 	http.HandleFunc("/api/user/skills", user.Skills)
 	http.HandleFunc("/api/user/details", user.Details)
 	http.HandleFunc("/api/user/tops", user.Tops)
+	http.HandleFunc("/api/user/avatar", user.Avatar)
 
 	http.HandleFunc("/api/beatmap/download", beatmap.Download)
 

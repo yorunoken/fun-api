@@ -28,6 +28,8 @@ window.onload = async function () {
     }
     console.log("updated shiii");
 
+    // const avatarBlob = await fetch(`/api/user/avatar?url=${player.avatar_url}`).then((res) => res.blob());
+
     document.getElementById("grade-ssh").textContent = statistics.grade_counts.ssh;
     document.getElementById("grade-ss").textContent = statistics.grade_counts.ss;
     document.getElementById("grade-sh").textContent = statistics.grade_counts.sh;
@@ -42,7 +44,7 @@ window.onload = async function () {
     document.getElementById("score").textContent = `${statistics.ranked_score.toLocaleString()}`;
     document.getElementById("playcount").textContent = `${statistics.play_count.toLocaleString()}`;
     document.getElementById("combo").textContent = `${statistics.maximum_combo.toLocaleString()}`;
-    document.getElementById("avatar").src = player.avatar_url;
+    document.getElementById("avatar").src = `/api/user/avatar?url=${player.avatar_url}`;
 
     document.getElementById("graph").src = `/api/graph?upside=true&points=${player.rankHistory.data.join(",")}`;
 
@@ -62,4 +64,11 @@ window.onload = async function () {
 
     // const averageAvatarColor = await fetch(`/api/averagecolor?image=${player.avatar_url}`).then((res) => res.json());
     // console.log(averageAvatarColor); // #4010e2
+
+    const generateImage = queryParams.get("img") === "true";
+    if (generateImage) {
+        const canvas = await html2canvas(document.body);
+        document.body.innerHTML = "";
+        document.body.appendChild(canvas);
+    }
 };
