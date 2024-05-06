@@ -24,6 +24,11 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 	mode := strings.ToLower(r.URL.Query().Get("mode"))
 	baseUrl := os.Getenv("base_url")
 
+	if userId == "" {
+		utils.WriteError(w, "`id` parameter was not specified.")
+		return
+	}
+
 	if mode == "" {
 		mode = "osu"
 	}

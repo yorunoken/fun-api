@@ -23,7 +23,7 @@ func Tops(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if userId == "" {
-		utils.WriteError(w, "Missing id parameter")
+		utils.WriteError(w, "Missing `id` parameter")
 		return
 	}
 

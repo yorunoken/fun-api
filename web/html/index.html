@@ -15,12 +15,37 @@
             <span class="small-hi">Make yourself at home :3</span>
             <p>This is a small project I work on during my free time.</p>
             <p>It's made using the <a href="https://go.dev/" target="_blank" rel="noopener noreferrer" class="go">Go programming language</a>!</p>
-            <p>You can see a list of all the endpoints below:</p>
+            <p>You can see a list of all the pages below:</p>
             <ul>
                 <li><a href="/mood" target="_blank" rel="noopener noreferrer">mood</a></li>
                 <li><a href="/hello" target="_blank" rel="noopener noreferrer">hello</a></li>
+                <li><a href="/card?username=yorunoken" target="_blank" rel="noopener noreferrer">osu! card generator</a></li>
+            </ul>
+            <p>and the API endpoints:</p>
+            <span>hover for additional information :></span>
+            <ul>
                 <li>
-                    <a href="/card?username=yorunoken" target="_blank" rel="noopener noreferrer">osu! card generator</a>
+                    <a
+                        title="gets the average color of an image. User must specify the image by passing in an `image` parameter."
+                        href="/api/averagecolor?image=https://i.scdn.co/image/ab67616d0000b273a9da992c2ef398245027d654"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >averagecolor</a
+                    >
+                </li>
+                <li>
+                    <a title="returns skill values for a user. User must specify the user's id by passing in an `id` parameter." href="/api/user/skills?id=17279598" target="_blank" rel="noopener noreferrer"
+                        >osu! skills calculator</a
+                    >
+                </li>
+                <li>
+                    <a
+                        title="returns an image of a graph. User must pass data by passing in a `points` parameter and specify new data by using `,` to split the data into arrays. Add `specify=true` to your parameter if you want the graph to be upside down."
+                        href="/api/graph?upside=true&points=11945,11952,11960,11962,11695,11704,11708,11722,11713,11722,11730,11737,13185,13196,11763,11768,11785,11789,11796,11804,11808,11781,11783,11795,11799,11806,11809,12621,12631,12637,12643,12662,12668,12678,12687,12701,12710,12722,12727,12735,12741,12749,12753,12755,12761,12764,12775,12775,12787,12774,12782,12782,12788,12371,12376,12280,12258,12264,12268,12275,12280,12286,12293,12301,12308,12311,12317,12323,12329,12338,12341,12350,12360,12369,12377,12377"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >graph</a
+                    >
                 </li>
             </ul>
             <p>The repository is <a class="github" target="_blank" rel="noopener noreferrer" href="https://github.com/YoruNoKen/fun-api">open source on GitHub</a></p>
