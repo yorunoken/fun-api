@@ -17,6 +17,6 @@ require (
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	golang.org/x/image v0.11.0 // indirect
-	golang.org/x/text v0.12.0 // indirect
+	golang.org/x/image v0.18.0 // indirect
+	golang.org/x/text v0.16.0 // indirect
 )
