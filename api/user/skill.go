@@ -46,7 +46,7 @@ func Skills(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dbPath := "/root/HanamiBot/src/data.db"
+	dbPath := "/home/deploy/HanamiBot/src/data.db"
 	if os.Getenv("DEV") == "1" {
 		dbPath = "./test.db"
 	}
